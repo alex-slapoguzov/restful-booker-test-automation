@@ -36,3 +36,13 @@ jobs:
           AUTH_PASSWORD: ${{ secrets.AUTH_PASSWORD }}
           LOGGING_ENABLED: false
         run: mvn --batch-mode --no-transfer-progress clean test
+
+
+      - name: Upload Maven test results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: surefire-reports
+          path: target/surefire-reports/
+          if-no-files-found: warn
+          retention-days: 14
