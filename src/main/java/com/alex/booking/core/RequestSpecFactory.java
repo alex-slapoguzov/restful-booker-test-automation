@@ -1,6 +1,7 @@
 package com.alex.booking.core;
 
 import com.alex.booking.config.TestConfig;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -19,6 +20,7 @@ public final class RequestSpecFactory {
                 .setAccept(ContentType.JSON)
                 .addFilter(new RequestLoggingFilter())
                 .addFilter(new ResponseLoggingFilter())
+                .addFilter(new AllureRestAssured())
                 .build();
     }
 }
