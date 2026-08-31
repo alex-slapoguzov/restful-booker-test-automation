@@ -1,0 +1,30 @@
+{
+  "validFirstName": [
+    "Alex",
+    "John",
+    "Michael",
+    "Anna",
+    "Maria"
+  ],
+  "validLastName": [
+    "Tester",
+    "Smith",
+    "Brown",
+    "Williams"
+  ],
+  "validRoomId": [
+    1,
+    2,
+    3
+  ],
+  "updatedFirstName": [
+    "UpdatedAlex",
+    "UpdatedJohn",
+    "UpdatedMaria"
+  ],
+  "updatedLastName": [
+    "UpdatedTester",
+    "UpdatedSmith",
+    "UpdatedBrown"
+  ]
+}

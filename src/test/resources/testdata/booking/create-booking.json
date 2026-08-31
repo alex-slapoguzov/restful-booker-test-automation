@@ -1,0 +1,12 @@
+{
+  "roomid": "${validRoomId}",
+  "firstname": "${validFirstName}",
+  "lastname": "${validLastName}",
+  "depositpaid": true,
+  "email": "create.test@example.com",
+  "phone": "07123456789",
+  "bookingdates": {
+    "checkin": "2035-01-10",
+    "checkout": "2035-01-12"
+  }
+}
