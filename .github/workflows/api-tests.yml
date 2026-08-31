@@ -37,12 +37,33 @@ jobs:
           LOGGING_ENABLED: false
         run: mvn --batch-mode --no-transfer-progress clean test
 
+      - name: Generate Allure report
+        if: always()
+        run: mvn --batch-mode --no-transfer-progress allure:report
 
-      - name: Upload Maven test results
+      - name: Upload Surefire reports
         if: always()
         uses: actions/upload-artifact@v7
         with:
           name: surefire-reports
           path: target/surefire-reports/
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload Allure results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: allure-results
+          path: target/allure-results/
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload Allure HTML report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: allure-report
+          path: target/site/allure-maven-plugin/
           if-no-files-found: warn
           retention-days: 14

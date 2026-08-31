@@ -5,15 +5,21 @@ import com.alex.booking.data.BookingTestData;
 import com.alex.booking.data.JsonDataReader;
 import com.alex.booking.model.booking.BookingResponse;
 import com.alex.booking.model.booking.CreateBookingRequest;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+@Epic("Booking API")
+@Feature("Booking management")
 public class UpdateBookingTest extends BaseBookingTest {
 
     private static final String UPDATE_DATA_FILE = "testdata/booking/update-booking.json";
 
-    @Test
+    @Test(description = "Update an existing booking using PUT")
+    @Story("Update booking")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Creates a booking, updates all its fields through PUT and verifies saved data through GET")
     public void shouldUpdateBooking() {
         CreateBookingRequest initialRequest = BookingTestData.validBooking();
 
