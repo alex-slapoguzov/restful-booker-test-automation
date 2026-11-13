@@ -23,18 +23,18 @@ public class UpdateBookingTest extends BaseBookingTest {
     public void shouldUpdateBooking() {
         CreateBookingRequest initialRequest = BookingTestData.validBooking();
 
-        BookingContext bookingContext = bookingPreconditions.createBooking(initialRequest, token);
+        BookingContext bookingContext = bookingPreconditions.createBooking(initialRequest);
         Integer bookingId = bookingContext.getBookingId();
 
         registerBookingForCleanup(bookingId);
 
         CreateBookingRequest updateRequest = JsonDataReader.readTemplate(UPDATE_DATA_FILE, CreateBookingRequest.class);
 
-        Response updateResponse = bookingApi.updateBooking(bookingId, updateRequest, token);
+        Response updateResponse = bookingApi.updateBooking(bookingId, updateRequest);
 
         updateResponse.then().statusCode(200);
 
-        Response getResponse = bookingApi.getBooking(bookingId, token);
+        Response getResponse = bookingApi.getBooking(bookingId);
 
         getResponse.then().statusCode(200);
 

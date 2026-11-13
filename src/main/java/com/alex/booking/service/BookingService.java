@@ -14,11 +14,8 @@ public final class BookingService {
         this.bookingApi = bookingApi;
     }
 
-    public BookingResponse createBooking(CreateBookingRequest bookingRequest, String token) {
-        Response response = bookingApi.createBooking(
-                bookingRequest,
-                token
-        );
+    public BookingResponse createBooking(CreateBookingRequest bookingRequest) {
+        Response response = bookingApi.createBooking(bookingRequest);
 
         response.then()
                 .statusCode(201)
@@ -38,14 +35,14 @@ public final class BookingService {
         return createdBooking;
     }
 
-    public void deleteBooking(int bookingId, String token) {
-        Response response = bookingApi.deleteBooking(bookingId, token);
+    public void deleteBooking(int bookingId) {
+        Response response = bookingApi.deleteBooking(bookingId);
 
         response.then().statusCode(202);
     }
 
-    public BookingResponse getBooking(int bookingId, String token) {
-        Response response = bookingApi.getBooking(bookingId, token);
+    public BookingResponse getBooking(int bookingId) {
+        Response response = bookingApi.getBooking(bookingId);
 
         response.then().statusCode(200);
         return response.as(BookingResponse.class);

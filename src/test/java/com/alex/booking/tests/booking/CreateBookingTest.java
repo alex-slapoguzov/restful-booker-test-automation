@@ -18,7 +18,7 @@ public class CreateBookingTest extends BaseBookingTest {
     public void shouldCreateBooking() {
         CreateBookingRequest bookingRequest = JsonDataReader.readTemplate(TEST_DATA_FILE, CreateBookingRequest.class);
 
-        Response response = bookingApi.createBooking(bookingRequest, token);
+        Response response = bookingApi.createBooking(bookingRequest);
 
         response.then().statusCode(201).contentType(ContentType.JSON);
 

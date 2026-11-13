@@ -13,11 +13,11 @@ public class GetBookingTest extends BaseBookingTest {
 
     @Test
     public void shouldReturnBookingById() {
-        BookingContext bookingContext = bookingPreconditions.createBooking(TEST_DATA_FILE, token);
+        BookingContext bookingContext = bookingPreconditions.createBooking(TEST_DATA_FILE);
 
         registerBookingForCleanup(bookingContext.getBookingId());
 
-        BookingResponse actualBooking = bookingService.getBooking(bookingContext.getBookingId(), token);
+        BookingResponse actualBooking = bookingService.getBooking(bookingContext.getBookingId());
 
         CreateBookingRequest expectedBooking = bookingContext.getRequest();
 

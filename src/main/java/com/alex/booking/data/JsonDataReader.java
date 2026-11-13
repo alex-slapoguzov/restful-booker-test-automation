@@ -37,19 +37,14 @@ public final class JsonDataReader {
             String resourcePath,
             Class<T> targetClass
     ) {
-        try (InputStream inputStream =
-                     openResource(resourcePath)) {
+        try (InputStream inputStream = openResource(resourcePath)) {
 
-            JsonNode template =
-                    OBJECT_MAPPER.readTree(inputStream);
+            JsonNode template = OBJECT_MAPPER.readTree(inputStream);
 
-            JsonNode processedTemplate =
-                    JsonTemplateProcessor.process(template);
+            JsonNode processedTemplate = JsonTemplateProcessor.process(template);
 
-            return OBJECT_MAPPER.treeToValue(
-                    processedTemplate,
-                    targetClass
-            );
+            return OBJECT_MAPPER.treeToValue(processedTemplate, targetClass);
+
         } catch (IOException exception) {
             throw new IllegalStateException(
                     "Cannot read JSON template: " + resourcePath,

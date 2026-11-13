@@ -25,37 +25,33 @@ public final class BookingApi {
                 .get(HEALTH_ENDPOINT);
     }
 
-    public Response createBooking(CreateBookingRequest bookingRequest, String token) {
+    public Response createBooking(CreateBookingRequest bookingRequest) {
         return given()
                 .spec(requestSpecification)
-                .cookie("token", token)
                 .body(bookingRequest)
                 .when()
                 .post(BOOKING_ENDPOINT);
     }
 
-    public Response getBooking(int bookingId, String token) {
+    public Response getBooking(int bookingId) {
         return given()
                 .spec(requestSpecification)
-                .cookie("token", token)
                 .pathParam("bookingId", bookingId)
                 .when()
                 .get(BOOKING_BY_ID_ENDPOINT);
     }
 
-    public Response deleteBooking(int bookingId, String token) {
+    public Response deleteBooking(int bookingId) {
         return given()
                 .spec(requestSpecification)
-                .cookie("token", token)
                 .pathParam("bookingId", bookingId)
                 .when()
                 .delete(BOOKING_BY_ID_ENDPOINT);
     }
 
-    public Response updateBooking(int bookingId, CreateBookingRequest bookingRequest, String token) {
+    public Response updateBooking(int bookingId, CreateBookingRequest bookingRequest) {
         return given()
                 .spec(requestSpecification)
-                .cookie("token", token)
                 .body(bookingRequest)
                 .when()
                 .put(BOOKING_BY_ID_ENDPOINT, bookingId);

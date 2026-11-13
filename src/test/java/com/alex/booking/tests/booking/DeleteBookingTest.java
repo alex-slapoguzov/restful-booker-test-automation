@@ -13,17 +13,17 @@ public class DeleteBookingTest extends BaseBookingTest {
     public void shouldDeleteBooking() {
         CreateBookingRequest bookingRequest = BookingTestData.validBooking();
 
-        BookingContext bookingContext = bookingPreconditions.createBooking(bookingRequest, token);
+        BookingContext bookingContext = bookingPreconditions.createBooking(bookingRequest);
         int bookingId = bookingContext.getBookingId();
 
         registerBookingForCleanup(bookingId);
 
-        Response deleteResponse = bookingApi.deleteBooking(bookingId, token);
+        Response deleteResponse = bookingApi.deleteBooking(bookingId);
         deleteResponse.then().statusCode(202);
 
         clearBookingForCleanup();
 
-        Response getResponse = bookingApi.getBooking(bookingId, token);
+        Response getResponse = bookingApi.getBooking(bookingId);
         getResponse.then().statusCode(404);
 
         clearBookingForCleanup();

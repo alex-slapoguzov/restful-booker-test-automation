@@ -16,14 +16,14 @@ public final class BookingPreconditions {
         this.bookingService = Objects.requireNonNull(bookingService, "BookingService must not be null");
     }
 
-    public BookingContext createBooking(String resourcePath, String token) {
+    public BookingContext createBooking(String resourcePath) {
         CreateBookingRequest request = JsonDataReader.readTemplate(resourcePath, CreateBookingRequest.class);
 
-        return createBooking(request, token);
+        return createBooking(request);
     }
 
-    public BookingContext createBooking(CreateBookingRequest request, String token) {
-        BookingResponse createdBooking = bookingService.createBooking(request, token);
+    public BookingContext createBooking(CreateBookingRequest request) {
+        BookingResponse createdBooking = bookingService.createBooking(request);
 
         return new BookingContext(request, createdBooking);
     }

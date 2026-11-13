@@ -10,17 +10,35 @@ import io.restassured.specification.RequestSpecification;
 
 public final class RequestSpecFactory {
 
+    private static final String TOKEN_COOKIE_NAME = "token";
+
     private RequestSpecFactory() {
     }
 
     public static RequestSpecification defaultSpec() {
+        return baseBuilder()
+                .build();
+    }
+
+    public static RequestSpecification authenticatedSpec(String token) {
+        if (token == null || token.isBlank()) {
+            throw new IllegalArgumentException(
+                    "Token must not be null or blank"
+            );
+        }
+
+        return baseBuilder()
+                .addCookie(TOKEN_COOKIE_NAME, token)
+                .build();
+    }
+
+    private static RequestSpecBuilder baseBuilder() {
         return new RequestSpecBuilder()
                 .setBaseUri(TestConfig.baseUrl())
                 .setContentType(ContentType.JSON)
                 .setAccept(ContentType.JSON)
                 .addFilter(new RequestLoggingFilter())
                 .addFilter(new ResponseLoggingFilter())
-                .addFilter(new AllureRestAssured())
-                .build();
+                .addFilter(new AllureRestAssured());
     }
 }
