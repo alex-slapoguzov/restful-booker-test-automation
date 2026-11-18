@@ -1,6 +1,7 @@
 package com.alex.booking.api;
 
 import com.alex.booking.model.booking.CreateBookingRequest;
+import com.fasterxml.jackson.databind.JsonNode;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
@@ -25,10 +26,18 @@ public final class BookingApi {
                 .get(HEALTH_ENDPOINT);
     }
 
-    public Response createBooking(CreateBookingRequest bookingRequest) {
+    public Response createBooking(CreateBookingRequest request) {
+        return sendCreateBooking(request);
+    }
+
+    public Response createBooking(JsonNode requestBody) {
+        return sendCreateBooking(requestBody);
+    }
+
+    private Response sendCreateBooking(Object body) {
         return given()
                 .spec(requestSpecification)
-                .body(bookingRequest)
+                .body(body)
                 .when()
                 .post(BOOKING_ENDPOINT);
     }

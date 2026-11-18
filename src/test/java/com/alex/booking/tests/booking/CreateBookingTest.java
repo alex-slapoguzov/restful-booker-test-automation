@@ -1,11 +1,13 @@
 package com.alex.booking.tests.booking;
 
-import com.alex.booking.data.BookingTestData;
 import com.alex.booking.data.JsonDataReader;
 import com.alex.booking.model.booking.CreateBookingRequest;
 import com.alex.booking.model.booking.BookingResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
@@ -35,5 +37,26 @@ public class CreateBookingTest extends BaseBookingTest {
         assertNotNull(createdBooking.getBookingDates(), "Booking dates must be present");
         assertEquals(createdBooking.getBookingDates().getCheckIn(), bookingRequest.getBookingDates().getCheckIn(), "Check-in date must match the request");
         assertEquals(createdBooking.getBookingDates().getCheckOut(), bookingRequest.getBookingDates().getCheckOut(), "Check-out date must match the request");
+    }
+
+    @Test(dataProvider = "TestBookingWithoutFields")
+    public void createBookingWithoutFields(String fieldName,String errorFieldName ) {
+        CreateBookingRequest bookingRequest = JsonDataReader.readTemplate(TEST_DATA_FILE, CreateBookingRequest.class);
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode requestBody = mapper.valueToTree(bookingRequest);
+        requestBody.remove(fieldName);
+        assertFalse(requestBody.has(fieldName));
+
+        Response response = bookingApi.createBooking(requestBody);
+        response.then().statusCode(400);
+        assertTrue(response.jsonPath().getList("errors").contains(String.format("%s should not be blank", errorFieldName)));
+    }
+
+    @DataProvider(name = "TestBookingWithoutFields")
+    public Object[][] testBookingWithoutFields() {
+        return new Object[][] {
+                { "firstname", "Firstname" },
+                { "lastname", "Lastname" }
+        };
     }
 }
